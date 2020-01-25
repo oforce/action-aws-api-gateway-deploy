@@ -10,8 +10,6 @@ async function run() {
     required: true
   };
   /*
-        ✓ get load balancer arn
-        ✓ get vpc link id
         ✓ get authorizer name and arn
         ✓ generate the swagger
         ✓ deploy to api gateway
