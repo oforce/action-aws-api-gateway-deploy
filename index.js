@@ -41,7 +41,7 @@ async function run() {
   // falling down to the cli becase the SDK refuses to upload the swagger file.
   await exec
     .exec(
-      `aws apigateway put-rest-api --rest-api-id ${restApiId} --body file://${destinationSwaggerFile}`
+      `aws apigateway put-rest-api --rest-api-id ${restApiId} --body file://${destinationSwaggerFile} --cli-binary-format raw-in-base64-out` 
     )
     .catch((e) => core.setFailed(e.message));
 
