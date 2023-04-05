@@ -7,7 +7,7 @@ import { generateSwaggerFile } from './src/swagger';
 
 async function run() {
   const required = {
-    required: true
+    required: true,
   };
   /*
         ✓ get authorizer name and arn
@@ -26,30 +26,32 @@ async function run() {
   const { arn: authorizerArn } = await getAuthorizer(
     restApiId,
     authorizerName
-  ).catch(e => core.setFailed(e.message));
+  ).catch((e) => core.setFailed(e.message));
 
   const { destinationSwaggerFile } = await generateSwaggerFile({
     jqScript,
     swaggerFile,
     baseUrl,
     authorizerArn,
-    authorizerName
-  }).catch(e => core.setFailed(e.message));
+    authorizerName,
+  }).catch((e) => core.setFailed(e.message));
 
   core.setOutput('swagger-file', destinationSwaggerFile);
 
   // falling down to the cli becase the SDK refuses to upload the swagger file.
-  await exec.exec(
-    `aws apigateway put-rest-api --rest-api-id ${restApiId} --body file://${destinationSwaggerFile}`
-  );
+  await exec
+    .exec(
+      `aws apigateway put-rest-api --rest-api-id ${restApiId} --body file://${destinationSwaggerFile}`
+    )
+    .catch((e) => core.setFailed(e.message));
 
   const client = new aws.APIGateway();
 
   await client
     .createDeployment({ restApiId, stageName })
     .promise()
-    .then(response => core.info(JSON.stringify(response, null, 2)))
-    .catch(e => core.setFailed(e.message));
+    .then((response) => core.info(JSON.stringify(response, null, 2)))
+    .catch((e) => core.setFailed(e.message));
 }
 
 export default run;
