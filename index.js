@@ -1,6 +1,6 @@
 import * as core from '@actions/core';
 import * as exec from '@actions/exec';
-import * as aws from 'aws-sdk';
+import { APIGateway } from "@aws-sdk/client-api-gateway";
 
 import { getAuthorizer } from './src/authorizer';
 import { generateSwaggerFile } from './src/swagger';
@@ -45,11 +45,10 @@ async function run() {
     )
     .catch((e) => core.setFailed(e.message));
 
-  const client = new aws.APIGateway();
+  const client = new APIGateway();
 
   await client
     .createDeployment({ restApiId, stageName })
-    .promise()
     .then((response) => core.info(JSON.stringify(response, null, 2)))
     .catch((e) => core.setFailed(e.message));
 }

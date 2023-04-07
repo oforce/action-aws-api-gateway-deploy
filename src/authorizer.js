@@ -1,10 +1,10 @@
 import * as core from '@actions/core';
-import * as aws from 'aws-sdk';
+import { APIGateway } from "@aws-sdk/client-api-gateway";
 
 export { getAuthorizer };
 
 function getAuthorizer(restApiId, authorizerName) {
-  return new aws.APIGateway()
+  return new APIGateway()
     .getAuthorizers({ restApiId })
     .promise()
     .then(readResponse(authorizerName))
