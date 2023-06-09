@@ -18,16 +18,12 @@ async function generateSwaggerFile({
 
   let out = '';
   
-  core.error("gandolfo")
-  core.warning("gandolfo")
-  core.info(arn)
-  core.info(authorizerArn)
 
   await exec.exec(
     `jq ${arg('url', `${baseUrl}`)} ${arg(
       'authorizer_name',
       authorizerName
-    )} ${arg('authorizer', authorizerArn)} -f api-gateway.jq ${swaggerFile}`,
+    )} ${argjson('authorizer0', authorizerArn[0] )}  ${argjson('authorizer1', authorizerArn[0] )} -f api-gateway.jq ${swaggerFile}`,
     [],
     {
       listeners: {

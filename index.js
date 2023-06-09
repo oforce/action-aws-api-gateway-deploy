@@ -28,12 +28,6 @@ async function run() {
     authorizerName
   ).catch((e) => core.setFailed(e.message));
 
-  core.info("gandolfo")
-  core.notice("gandolfo")
-  core.info(arn)
-  core.info(authorizerArn)
-
-
   const { destinationSwaggerFile } = await generateSwaggerFile({
     jqScript,
     swaggerFile,
@@ -50,8 +44,6 @@ async function run() {
       `aws apigateway put-rest-api --rest-api-id ${restApiId} --body file://${destinationSwaggerFile} --cli-binary-format raw-in-base64-out` 
     )
     .catch((e) => core.setFailed(e.message));
-
-  await exec .exec(`echo brooo ${authorizerArn}`).catch((e) => core.setFailed(e.message));
 
   const client = new aws.APIGateway();
 
