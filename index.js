@@ -28,6 +28,12 @@ async function run() {
     authorizerName
   ).catch((e) => core.setFailed(e.message));
 
+  core.info("gandolfo")
+  core.notice("gandolfo")
+  core.info(arn)
+  core.info(authorizerArn)
+
+
   const { destinationSwaggerFile } = await generateSwaggerFile({
     jqScript,
     swaggerFile,
