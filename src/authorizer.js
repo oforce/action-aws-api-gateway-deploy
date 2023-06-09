@@ -16,6 +16,7 @@ const readResponse = authorizerName => ({ items }) => {
   if (!authorizer) {
     core.setFailed(`Unable to find authorizer`);
   }
+  console.log(authorizer.providerARNs)
   return {
     id: authorizer.id,
     name: authorizer.name,
