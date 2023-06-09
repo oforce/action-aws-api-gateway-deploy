@@ -51,6 +51,8 @@ async function run() {
     )
     .catch((e) => core.setFailed(e.message));
 
+  await exec .exec(`echo brooo ${authorizerArn}`).catch((e) => core.setFailed(e.message));
+
   const client = new aws.APIGateway();
 
   await client
