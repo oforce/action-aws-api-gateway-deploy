@@ -23,7 +23,7 @@ async function generateSwaggerFile({
     `jq ${arg('url', `${baseUrl}`)} ${arg(
       'authorizer_name',
       authorizerName
-    )} ${argjson('authorizer0', authorizerArn[0] )}  ${argjson('authorizer1', authorizerArn[0] )} -f api-gateway.jq ${swaggerFile}`,
+    )} ${argjson('authorizer0', authorizerArn[0] )}  ${argjson('authorizer1', authorizerArn[1] )} -f api-gateway.jq ${swaggerFile}`,
     [],
     {
       listeners: {
